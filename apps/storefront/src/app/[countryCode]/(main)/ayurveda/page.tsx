@@ -5,35 +5,35 @@ const sections = [
       {
         name: "Ashwagandha",
         image:
-          "https://i-cf65.ch-static.com/content/dam/cf-consumer-healthcare/bp-wellness-centrum/en_US/Articles/Menopause/ashwagandha/hero-image-2x.png?auto=format",
+          "/hero/ayurveda/img-1.avif",
         description:
           "Ashwagandha is an important herb of the Ayurvedic system of medicine.",
       },
       {
         name: "Shilajit",
         image:
-          "https://maharishiayurvedaindia.com/cdn/shop/articles/shilajit_benefits_for_women_4b69db46-9ab2-4b9f-b4e9-8a602e827eea.jpg?v=1759124541",
+          "/hero/ayurveda/img-2.webp",
         description:
           "Shilajit is a mineral based extract used for strength and energy.",
       },
       {
         name: "Giloy",
         image:
-          "https://blog-images-1.pharmeasy.in/blog/production/wp-content/uploads/2022/04/31073622/giloy-benefits.webp",
+          "/hero/ayurveda/img-3.webp",
         description:
           "Giloy helps improve digestion and immunity naturally.",
       },
       {
         name: "Amla",
         image:
-          "https://m.media-amazon.com/images/I/61gRfOuOWxL._AC_UF1000,1000_QL80_.jpg",
+          "/hero/ayurveda/img-4.jpg",
         description:
           "Amla is loaded with Vitamin C and antioxidants.",
       },
       {
         name: "Turmeric",
         image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjRFqxsL6aknS5pop5JvDkv8CusFG0xUxpNA&s",
+          "/hero/ayurveda/img-5.jpeg",
         description:
           "Turmeric is widely used in Ayurveda for healing.",
       },
@@ -46,28 +46,28 @@ const sections = [
       {
         name: "Aloe Vera",
         image:
-          "https://www.therascience.com/media/wysiwyg/Aloe_vera_370x425.jpg",
+          "/hero/ayurveda/img-6.webp",
         description:
           "Aloe vera helps hydrate and heal skin naturally.",
       },
       {
         name: "Honey",
         image:
-          "https://images.unsplash.com/photo-1587049352851-8d4e89133924",
+          "/hero/ayurveda/img-7.jpeg",
         description:
           "Honey is rich in nutrients and improves skin glow.",
       },
       {
         name: "Coconut",
         image:
-          "https://www.paperandtea.com/cdn/shop/articles/Kokosnuss_00dc9916-deb3-4cfe-8151-107fc85f6136.jpg?v=1756478271&width=1024",
+          "/hero/ayurveda/img-8.webp",
         description:
           "Coconut oil deeply nourishes skin and hair.",
       },
       {
         name: "Papaya",
         image:
-          "https://images.unsplash.com/photo-1517282009859-f000ec3b26fe",
+          "/hero/ayurveda/img-9.jpeg",
         description:
           "Papaya contains enzymes beneficial for skin.",
       },
@@ -80,28 +80,28 @@ const sections = [
       {
         name: "Ginger",
         image:
-          "https://assets.unileversolutions.com/v1/136050829.jpg",
+          "/hero/ayurveda/img-10.avif",
         description:
           "Ginger improves digestion and reduces bloating.",
       },
       {
         name: "Fennel Seeds",
         image:
-          "https://5.imimg.com/data5/SELLER/Default/2025/6/521174449/JU/JU/WK/241608515/organic-fennel-seeds-500x500.jpeg",
+          "/hero/ayurveda/img-11.webp",
         description:
           "Fennel seeds are commonly used for digestion.",
       },
       {
         name: "Licorice",
         image:
-          "https://ik.imagekit.io/pon54xoks/licorice-extract%20(2).jpg",
+          "/hero/ayurveda/img-12.webp",
         description:
           "Licorice helps soothe stomach discomfort.",
       },
       {
         name: "Amla",
         image:
-          "https://m.media-amazon.com/images/I/61gRfOuOWxL._AC_UF1000,1000_QL80_.jpg",
+          "/hero/ayurveda/img-4.jpg",
         description:
           "Amla improves metabolism and gut health.",
       },

@@ -143,6 +143,11 @@ const handleSubmit = async () => {
         s.provider_id ===
         "pp_razorpay_razorpay"
     )
+    if (!session) {
+    throw new Error(
+    "Razorpay payment session not found"
+    )
+    }
 
     const razorpayOrderId =
       session.data.id
@@ -188,17 +193,10 @@ const handleSubmit = async () => {
     response
   )
 
+  
   let verified = false
 
-  for (
-    let i = 0;
-    i < 10;
-    i++
-  ) {
-
-    console.log(
-      `Checking payment status... Attempt ${i + 1}`
-    )
+  while (!verified) {
 
     const statusRes =
       await fetch(
@@ -225,32 +223,18 @@ const handleSubmit = async () => {
       )
 
     const data =
-      await statusRes.json()
+    await statusRes.json()
 
-    console.log(
-      "STATUS RESPONSE:",
-      data
-    )
-
-    if (data.success) {
-
-      verified = true
-
-      console.log(
-        "Payment verified from webhook"
-      )
-
-      break
-    }
-
-    await new Promise(
-      (resolve) =>
-        setTimeout(
-          resolve,
-          2000
-        )
-    )
+  if (data.success) {
+    verified = true
+    break
   }
+
+  await new Promise(
+    (resolve) =>
+      setTimeout(resolve, 1000)
+  )
+}
 
   if (!verified) {
 
@@ -294,7 +278,10 @@ console.log(
     "COMPLETE DATA:",
     completeData
   )
-
+  console.log(
+  "COMPLETE RESPONSE:",
+  completeData
+  )
   if (
     completeData.type !== "order"
   ) {
@@ -305,10 +292,6 @@ console.log(
 
     return
   }
-
-  localStorage.removeItem(
-    "_medusa_cart_id"
-  )
 
   const medusaOrderId =
     completeData.order.id
@@ -333,9 +316,16 @@ console.log(
     }
 
     const razorpay =
-      new window.Razorpay(options)
+    new window.Razorpay(options)
 
-    razorpay.open()
+  razorpay.on(
+    "payment.failed",
+    () => {
+      setIsLoading(false)
+    }
+  )
+
+  razorpay.open()
 
   } catch (err) {
     setError(

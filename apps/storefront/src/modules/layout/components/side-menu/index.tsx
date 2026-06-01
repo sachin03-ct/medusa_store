@@ -12,12 +12,16 @@ import LanguageSelect from "../language-select"
 import { Locale } from "@lib/data/locales"
 import { Menu } from "lucide-react"
 
-
 const SideMenuItems = {
   Home: "/",
   Store: "/store",
   Account: "/account",
   Cart: "/cart",
+  "Lab-Test": "/lab-test",
+  "Consult Doctors": "/consult-doc",
+  Ayurveda: "/ayurveda",
+  "Cancer Care": "/cancer-care",
+  Offers: "/offers",
 }
 
 type SideMenuProps = {
@@ -41,7 +45,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                 <Menu size={24} />
+                  <Menu size={24} />
                 </Popover.Button>
               </div>
 
@@ -73,17 +77,28 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                         <XMark />
                       </button>
                     </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start">
+                    <ul className="flex flex-col gap-4">
                       {Object.entries(SideMenuItems).map(([name, href]) => {
                         return (
-                          <li key={name}>
+                          <li key={name} className="w-full">
                             <LocalizedClientLink
                               href={href}
-                              className="text-3xl leading-10 hover:text-ui-fg-disabled"
                               onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
-                            >
-                              {name}
+                              className="
+                              flex items-center
+                              justify-between
+                              w-full
+                                p-4
+                                rounded-xl
+                               bg-white/10
+                               hover:bg-white/20
+                               text-xl
+                                font-semibold
+                                transition-all
+                                "
+                              >
+                              <span>{name}</span>
+                              <ArrowRightMini />
                             </LocalizedClientLink>
                           </li>
                         )
@@ -128,8 +143,8 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Generic Medicine Store. All rights
-                        reserved.
+                        © {new Date().getFullYear()} Generic Medicine Store. All
+                        rights reserved.
                       </Text>
                     </div>
                   </div>
