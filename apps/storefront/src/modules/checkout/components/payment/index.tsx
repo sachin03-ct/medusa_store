@@ -137,8 +137,12 @@ const handleSubmit = async () => {
     }
 
     const session =
-      paymentSession.payment_collection
-        .payment_sessions[0]
+  paymentSession.payment_collection
+    .payment_sessions.find(
+      (s: any) =>
+        s.provider_id ===
+        "pp_razorpay_razorpay"
+    )
 
     const razorpayOrderId =
       session.data.id
@@ -176,30 +180,142 @@ const handleSubmit = async () => {
       },
 
       handler: async function (
-        response: any
-      ) {
-        console.log(
-          "Payment Success",
-          response
-        )
+  response: any
+) {
 
-        console.log(
-          "Payment ID:",
-          response.razorpay_payment_id
-        )
+  console.log(
+    "Payment Success",
+    response
+  )
 
-        console.log(
-          "Order ID:",
-          response.razorpay_order_id
-        )
+  let verified = false
 
-        console.log(
-          "Signature:",
-          response.razorpay_signature
-        )
+  for (
+    let i = 0;
+    i < 10;
+    i++
+  ) {
 
-        // verify payment here
-      },
+    console.log(
+      `Checking payment status... Attempt ${i + 1}`
+    )
+
+    const statusRes =
+      await fetch(
+        "http://localhost:9000/store/check-payment-status",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            "x-publishable-api-key":
+              process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "",
+          },
+
+          body: JSON.stringify({
+            order_id:
+              response.razorpay_order_id,
+
+            payment_id:
+              response.razorpay_payment_id,
+          }),
+        }
+      )
+
+    const data =
+      await statusRes.json()
+
+    console.log(
+      "STATUS RESPONSE:",
+      data
+    )
+
+    if (data.success) {
+
+      verified = true
+
+      console.log(
+        "Payment verified from webhook"
+      )
+
+      break
+    }
+
+    await new Promise(
+      (resolve) =>
+        setTimeout(
+          resolve,
+          2000
+        )
+    )
+  }
+
+  if (!verified) {
+
+    alert(
+      "Payment not verified yet"
+    )
+
+    return
+  }
+console.log(
+  "Webhook verified:",
+  verified
+)
+
+console.log(
+  "Completing cart:",
+  cart.id
+)
+  // COMPLETE CART AFTER PAYMENT VERIFIED
+
+  const completeRes =
+    await fetch(
+      `http://localhost:9000/store/carts/${cart.id}/complete`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+
+          "x-publishable-api-key":
+            process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "",
+        },
+      }
+    )
+
+  const completeData =
+    await completeRes.json()
+
+  console.log(
+    "COMPLETE DATA:",
+    completeData
+  )
+
+  if (
+    completeData.type !== "order"
+  ) {
+
+    alert(
+      "Order completion failed"
+    )
+
+    return
+  }
+
+  localStorage.removeItem(
+    "_medusa_cart_id"
+  )
+
+  const medusaOrderId =
+    completeData.order.id
+
+  window.location.href =
+    `/${cart.region?.countries?.[0]?.iso_2}/account/orders/details/${medusaOrderId}`
+},
 
       theme: {
         color: "#000000",

@@ -106,16 +106,63 @@ export async function POST(
         )
 
       const paymentSessionId =
-        sessionResult.rows[0]?.id
+  sessionResult.rows[0]?.id
+
+console.log(
+  "PAYMENT SESSION ID:",
+  paymentSessionId
+)
+
+if (!paymentSessionId) {
+
+  console.log(
+    "Payment session not found for Razorpay order:",
+    razorpayOrderId
+  )
+
+  await client.end()
+
+  return res.status(404).json({
+    success: false,
+    message: "Payment session not found",
+  })
+}
+
         console.log('sessionResult',sessionResult);
       console.log(
         "PAYMENT SESSION ID:",
         paymentSessionId
       )
+      console.log("sessionResult", sessionResult.rows)
 
-      // =========================
-      // FIND MEDUSA PAYMENT
-      // =========================
+await client.query(
+  `
+  UPDATE payment_session
+  SET data = data || $1::jsonb
+  WHERE id = $2
+  `,
+  [
+    JSON.stringify({
+      razorpay_order_id:
+        razorpayPayment.order_id,
+
+      razorpay_payment_id:
+        razorpayPayment.id,
+
+      payment_status:
+        razorpayPayment.status,
+
+      captured_at:
+        new Date().toISOString(),
+    }),
+
+    paymentSessionId,
+  ]
+)
+
+console.log(
+  "PAYMENT SESSION UPDATED"
+)
 
       const paymentResult =
         await client.query(
@@ -129,57 +176,33 @@ export async function POST(
         )
 
       const medusaPaymentId =
-        paymentResult.rows[0]?.id
+  paymentResult.rows[0]?.id
 
+console.log(
+  "MEDUSA PAYMENT ID:",
+  medusaPaymentId
+)
+
+if (!medusaPaymentId) {
+
+  console.log(
+    "Medusa payment not found"
+  )
+
+  await client.end()
+
+  return res.status(404).json({
+    success: false,
+    message: "Medusa payment not found",
+  })
+}
       console.log(
         "MEDUSA PAYMENT ID:",
         medusaPaymentId
       )
-
-      await client.end()
-
-      // =========================
-      // CAPTURE PAYMENT IN MEDUSA
-      // =========================
-
-      if (medusaPaymentId) {
-
-        const captureResponse =
-          await fetch(
-            `http://localhost:9000/admin/payments/${medusaPaymentId}/capture`,
-            {
-              method: "POST",
-
-              headers: {
-                Authorization:
-                  `Bearer ${process.env.MEDUSA_ADMIN_TOKEN}`,
-
-                "Content-Type":
-                  "application/json",
-              },
-
-              body: JSON.stringify({})
-            }
-          )
-
-        console.log(
-          "CAPTURE STATUS:",
-          captureResponse.status
-        )
-
-        const captureData =
-          await captureResponse.json()
-
-        console.log(
-          "CAPTURE RESPONSE:",
-          captureData
-        )
-      }
+     await client.end()
+    
     }
-
-    // =========================
-    // SUCCESS
-    // =========================
 
     return res.status(200).json({
       success: true,
