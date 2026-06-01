@@ -33,7 +33,7 @@ const sections = [
       {
         name: "Turmeric",
         image:
-          "/hero/ayurveda/img-5.jpeg",
+          "/hero/ayurveda/img-5.jpg",
         description:
           "Turmeric is widely used in Ayurveda for healing.",
       },

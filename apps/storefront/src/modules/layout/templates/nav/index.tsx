@@ -91,7 +91,7 @@ export default async function Nav() {
         </div>
 
         {/* CENTER MENU */}
-        <div className="hidden lg:flex items-center gap-10">
+        <div className="hidden lg:flex items-center gap-10 text-lg">
 
           <LocalizedClientLink
             href="/"

@@ -51,7 +51,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
 
               {open && (
                 <div
-                  className="fixed inset-0 z-[50] bg-black/0 pointer-events-auto"
+                  className="fixed inset-0 z-[50] bg-black/30 backdrop-blur-sm"
                   onClick={close}
                   data-testid="side-menu-backdrop"
                 />
@@ -67,47 +67,124 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                 leaveFrom="opacity-100 backdrop-blur-2xl"
                 leaveTo="opacity-0"
               >
-                <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
+                <PopoverPanel
+                  className="
+                fixed
+                top-0
+                left-0
+                h-screen
+                w-[360px]
+                z-[100]
+                " >
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
+                    className="
+                    flex
+                    flex-col
+                    h-full
+                    bg-white
+                    shadow-2xl
+                    border-r
+                    border-gray-100
+                    "
                   >
-                    <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
+                    {/* HEADER */}
+                    <div className="flex items-center justify-between px-6 py-5 border-b">
+                      <div>
+                        <h2 className="text-2xl font-bold text-cyan-600">
+                          Generic Medicine
+                        </h2>
+
+                        <p className="text-sm text-gray-500">
+                          Healthcare at your fingertips
+                        </p>
+                      </div>
+
+                      <button
+                        data-testid="close-menu-button"
+                        onClick={close}
+                        className="
+                        w-10
+                        h-10
+                        rounded-full
+                        hover:bg-gray-100
+                        flex
+                        items-center
+                        justify-center
+                        "
+                      >
                         <XMark />
                       </button>
                     </div>
-                    <ul className="flex flex-col gap-4">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
-                        return (
-                          <li key={name} className="w-full">
+
+                    {/* USER CARD */}
+                    <div className="p-4">
+                      <div className="bg-cyan-50 rounded-2xl p-4">
+                        <div className="font-semibold text-gray-800">
+                          Welcome 👋
+                        </div>
+
+                        <div className="text-sm text-gray-500 mt-1">
+                          Manage medicines, orders and healthcare services.
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* MENU ITEMS */}
+                    <div className="flex-1 px-4 overflow-y-auto">
+                      <ul className="space-y-2">
+                        {Object.entries(SideMenuItems).map(([name, href]) => (
+                          <li key={name}>
                             <LocalizedClientLink
                               href={href}
                               onClick={close}
                               className="
-                              flex items-center
+                              flex
+                              items-center
                               justify-between
-                              w-full
-                                p-4
-                                rounded-xl
-                               bg-white/10
-                               hover:bg-white/20
-                               text-xl
-                                font-semibold
-                                transition-all
+                              px-4
+                              py-4
+                              rounded-2xl
+                              text-gray-700
+                              hover:bg-cyan-50
+                              hover:text-cyan-600
+                              transition-all
+                              group
+                              "
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="text-xl">
+                                  {name === "Home" && "🏠"}
+                                  {name === "Store" && "💊"}
+                                  {name === "Account" && "👤"}
+                                  {name === "Cart" && "🛒"}
+                                  {name === "Lab-Test" && "🧪"}
+                                  {name === "Consult Doctors" && "👨‍⚕️"}
+                                  {name === "Ayurveda" && "🌿"}
+                                  {name === "Cancer Care" && "🎗️"}
+                                  {name === "Offers" && "🔥"}
+                                </span>
+
+                                <span className="font-medium">{name}</span>
+                              </div>
+
+                              <ArrowRightMini
+                                className="
+                                group-hover:translate-x-1
+                                transition-transform
                                 "
-                              >
-                              <span>{name}</span>
-                              <ArrowRightMini />
+                              />
                             </LocalizedClientLink>
                           </li>
-                        )
-                      })}
-                    </ul>
-                    <div className="flex flex-col gap-y-6">
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="border-t p-4">
                       {!!locales?.length && (
                         <div
-                          className="flex justify-between"
+                          className="flex justify-between items-center py-3"
                           onMouseEnter={languageToggleState.open}
                           onMouseLeave={languageToggleState.close}
                         >
@@ -116,36 +193,31 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                             locales={locales}
                             currentLocale={currentLocale}
                           />
-                          <ArrowRightMini
-                            className={clx(
-                              "transition-transform duration-150",
-                              languageToggleState.state ? "-rotate-90" : ""
-                            )}
-                          />
+
+                          <ArrowRightMini />
                         </div>
                       )}
-                      <div
-                        className="flex justify-between"
-                        onMouseEnter={countryToggleState.open}
-                        onMouseLeave={countryToggleState.close}
-                      >
-                        {regions && (
+
+                      {regions && (
+                        <div
+                          className="flex justify-between items-center py-3"
+                          onMouseEnter={countryToggleState.open}
+                          onMouseLeave={countryToggleState.close}
+                        >
                           <CountrySelect
                             toggleState={countryToggleState}
                             regions={regions}
                           />
-                        )}
-                        <ArrowRightMini
-                          className={clx(
-                            "transition-transform duration-150",
-                            countryToggleState.state ? "-rotate-90" : ""
-                          )}
-                        />
+
+                          <ArrowRightMini />
+                        </div>
+                      )}
+
+                      <div className="mt-4 text-xs text-gray-400">
+                        © {new Date().getFullYear()}
+                        <br />
+                        Generic Medicine Store
                       </div>
-                      <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Generic Medicine Store. All
-                        rights reserved.
-                      </Text>
                     </div>
                   </div>
                 </PopoverPanel>
