@@ -11,18 +11,16 @@ export default async function MedicinePage({
     slug: string
   }>
 }) {
-
   const { category, slug } = await params
 
   const { products } =
     await sdk.store.product.list({
       handle: slug,
       fields:
-        "*variants.calculated_price,+variants.inventory_quantity",
+        "*variants.calculated_price,+variants.inventory_quantity,+images",
     })
 
   const medicine = products[0]
-
 
   if (!medicine) {
     return (
@@ -37,10 +35,12 @@ export default async function MedicinePage({
 
       {/* BREADCRUMB */}
       <div className="max-w-7xl mx-auto mb-8">
-
         <div className="flex items-center gap-2 text-sm md:text-base text-gray-500">
 
-          <Link href="/" className="hover:text-cyan-600">
+          <Link
+            href="/"
+            className="hover:text-cyan-600"
+          >
             Home
           </Link>
 
@@ -60,27 +60,23 @@ export default async function MedicinePage({
           </span>
 
         </div>
-
       </div>
 
       {/* MAIN */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
 
-        {/* IMAGE */}
+        {/* IMAGE SECTION */}
         <div className="bg-white rounded-3xl shadow-lg p-5 sticky top-24 h-fit">
 
-          <div className="bg-white rounded-3xl shadow-lg p-5 sticky top-24 h-fit">
-
-            <ProductImageViewer
-              image={medicine.thumbnail || ""}
-              title={medicine.title}
-            />
-
-          </div>
+          <ProductImageViewer
+            images={medicine.images || []}
+            title={medicine.title}
+          />
 
         </div>
+
         {/* DETAILS */}
-        <div className="flex flex-col self-start  top-24">
+        <div className="flex flex-col self-start">
 
           <span className="w-fit px-4 py-2 rounded-full bg-cyan-100 text-cyan-700 font-medium capitalize">
 
@@ -94,10 +90,10 @@ export default async function MedicinePage({
 
           </h1>
 
-
           <p className="mt-6 text-gray-600 text-lg leading-8">
 
-            {medicine.description || "No description available."}
+            {medicine.description ||
+              "No description available."}
 
           </p>
 
@@ -106,6 +102,7 @@ export default async function MedicinePage({
             countryCode="in"
           />
 
+          {/* OFFERS */}
           <div className="mt-8 bg-white rounded-2xl border border-gray-200 p-5">
 
             <h3 className="font-bold text-lg mb-3">
@@ -114,14 +111,23 @@ export default async function MedicinePage({
 
             <ul className="space-y-2 text-sm text-gray-600">
 
-              <li>✅ 10% Instant Discount on UPI</li>
-              <li>✅ Free delivery on orders above ₹499</li>
-              <li>✅ Cashback up to ₹100</li>
+              <li>
+                ✅ 10% Instant Discount on UPI
+              </li>
+
+              <li>
+                ✅ Free delivery on orders above ₹499
+              </li>
+
+              <li>
+                ✅ Cashback up to ₹100
+              </li>
 
             </ul>
 
           </div>
 
+          {/* HIGHLIGHTS */}
           <div className="mt-8">
 
             <h3 className="font-bold text-xl mb-4">
@@ -149,6 +155,7 @@ export default async function MedicinePage({
             </div>
 
           </div>
+
         </div>
 
       </div>

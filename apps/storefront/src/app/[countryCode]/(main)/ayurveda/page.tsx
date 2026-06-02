@@ -1,39 +1,40 @@
+import Link from "next/link"
 const sections = [
   {
     title: "Featured Herbs",
     items: [
       {
         name: "Ashwagandha",
-        image:
-          "/hero/ayurveda/img-1.avif",
+        slug: "ashwagandha",
+        image: "/hero/ayurveda/img-1.avif",
         description:
           "Ashwagandha is an important herb of the Ayurvedic system of medicine.",
       },
       {
         name: "Shilajit",
-        image:
-          "/hero/ayurveda/img-2.webp",
+        slug: "shilajit",
+        image: "/hero/ayurveda/img-2.webp",
         description:
           "Shilajit is a mineral based extract used for strength and energy.",
       },
       {
         name: "Giloy",
-        image:
-          "/hero/ayurveda/img-3.webp",
+        slug: "giloy",
+        image: "/hero/ayurveda/img-3.webp",
         description:
           "Giloy helps improve digestion and immunity naturally.",
       },
       {
         name: "Amla",
-        image:
-          "/hero/ayurveda/img-4.jpg",
+        slug: "amla",
+        image: "/hero/ayurveda/img-4.jpg",
         description:
           "Amla is loaded with Vitamin C and antioxidants.",
       },
       {
         name: "Turmeric",
-        image:
-          "/hero/ayurveda/img-5.jpg",
+        slug: "turmeric",
+        image: "/hero/ayurveda/img-5.jpg",
         description:
           "Turmeric is widely used in Ayurveda for healing.",
       },
@@ -45,29 +46,29 @@ const sections = [
     items: [
       {
         name: "Aloe Vera",
-        image:
-          "/hero/ayurveda/img-6.webp",
+        slug: "aloe-vera",
+        image: "/hero/ayurveda/img-6.webp",
         description:
           "Aloe vera helps hydrate and heal skin naturally.",
       },
       {
         name: "Honey",
-        image:
-          "/hero/ayurveda/img-7.jpeg",
+        slug: "honey",
+        image: "/hero/ayurveda/img-7.jpeg",
         description:
           "Honey is rich in nutrients and improves skin glow.",
       },
       {
         name: "Coconut",
-        image:
-          "/hero/ayurveda/img-8.webp",
+        slug: "coconut",
+        image: "/hero/ayurveda/img-8.webp",
         description:
           "Coconut oil deeply nourishes skin and hair.",
       },
       {
         name: "Papaya",
-        image:
-          "/hero/ayurveda/img-9.jpeg",
+        slug: "papaya",
+        image: "/hero/ayurveda/img-9.jpeg",
         description:
           "Papaya contains enzymes beneficial for skin.",
       },
@@ -79,29 +80,29 @@ const sections = [
     items: [
       {
         name: "Ginger",
-        image:
-          "/hero/ayurveda/img-10.avif",
+        slug: "ginger",
+        image: "/hero/ayurveda/img-10.avif",
         description:
           "Ginger improves digestion and reduces bloating.",
       },
       {
         name: "Fennel Seeds",
-        image:
-          "/hero/ayurveda/img-11.webp",
+        slug: "fennel-seeds",
+        image: "/hero/ayurveda/img-11.webp",
         description:
           "Fennel seeds are commonly used for digestion.",
       },
       {
         name: "Licorice",
-        image:
-          "/hero/ayurveda/img-12.webp",
+        slug: "licorice",
+        image: "/hero/ayurveda/img-12.webp",
         description:
           "Licorice helps soothe stomach discomfort.",
       },
       {
         name: "Amla",
-        image:
-          "/hero/ayurveda/img-4.jpg",
+        slug: "amla",
+        image: "/hero/ayurveda/img-4.jpg",
         description:
           "Amla improves metabolism and gut health.",
       },
@@ -164,9 +165,20 @@ export default function AyurvedaPage() {
                       {item.description}
                     </p>
 
-                    <button className="mt-5 bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl text-lg font-semibold transition-all">
-                      Explore
-                    </button>
+                    <Link
+  href={`/ayurveda/${item.slug}`}
+  className="
+    inline-block
+    mt-4
+    bg-green-600
+    text-white
+    px-6
+    py-3
+    rounded-xl
+  "
+>
+  Explore
+</Link>
 
                   </div>
 

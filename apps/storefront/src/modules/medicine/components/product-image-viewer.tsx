@@ -4,31 +4,76 @@ import { useState } from "react"
 import { X } from "lucide-react"
 
 export default function ProductImageViewer({
-    image,
-    title,
+  images,
+  title,
 }: {
-    image: string
-    title: string
+  images: {
+    id: string
+    url: string
+  }[]
+  title: string
 }) {
+  const [selectedImage, setSelectedImage] =
+    useState(images?.[0]?.url || "")
 
-    const [open, setOpen] = useState(false)
-    const [zoomed, setZoomed] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [zoomed, setZoomed] = useState(false)
 
+  if (!images?.length) {
     return (
-        <>
+                    <img
+                        src=""
+                        alt={title}
+                        className="w-full h-[500px] object-contain"
+                    />
+                    )
+                }
+                    return (
+                        <>
+            <div className="flex gap-4">
+                {/* Thumbnails */}
+                <div className="flex flex-col gap-3">
+                    {images.map((image) => (
+                    <img
+                        key={image.id}
+                        src={image.url}
+                        onClick={() => setSelectedImage(image.url)}
+                        className={`
+                        w-16 h-16 rounded-lg border cursor-pointer
+                        ${selectedImage === image.url
+                            ? "border-red-500"
+                            : "border-gray-200"}
+                        `}
+                    />
+                    ))}
+                </div>
 
-            {/* MAIN IMAGE */}
-            <div
-                onClick={() => setOpen(true)}
-                className="overflow-hidden rounded-2xl cursor-zoom-in"
-            >
-
-                <img
-                    src={image}
-                    alt={title}
-                    className="w-full h-[350px] md:h-[500px] lg:h-[500px] object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
-                />
-
+                {/* Main Image */}
+                <div
+                    onClick={() => setOpen(true)}
+                    className="
+                        flex-1
+                        h-[500px]
+                        bg-white
+                        border
+                        border-gray-300
+                        rounded-2xl
+                        flex
+                        items-center
+                        justify-center
+                        p-4
+                    "
+                    >
+                    <img
+                        src={selectedImage}
+                        alt={title}
+                        className="
+                        max-w-[100%]
+                        max-h-[100%]
+                        object-contain
+                        "
+                    />
+                </div>
             </div>
 
             {/* FULLSCREEN MODAL */}
@@ -49,7 +94,7 @@ export default function ProductImageViewer({
                     {/* IMAGE */}
                     <div className="overflow-auto max-h-full max-w-full rounded-2xl">
                         <img
-                            src={image}
+                            src={selectedImage}
                             alt={title}
                             onDoubleClick={() => setZoomed(!zoomed)}
                             className={`

@@ -40,15 +40,15 @@ export default function LabTestsPage() {
             {/* BUTTONS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
 
-              <button className="bg-blue-50 rounded-2xl py-5 text-base md:text-lg font-medium hover:shadow-md transition-all">
+              <button className="bg-blue-100 rounded-2xl py-6 text-base md:text-lg font-medium hover:shadow-md transition-all">
                 📞 Book via Phone Call
               </button>
 
-              <button className="bg-pink-50 rounded-2xl py-5 text-base md:text-lg font-medium hover:shadow-md transition-all">
+              <button className="bg-pink-100 rounded-2xl py-6 text-base md:text-lg font-medium hover:shadow-md transition-all">
                 🧾 Quick Order
               </button>
 
-              <button className="bg-green-50 rounded-2xl py-5 text-base md:text-lg font-medium hover:shadow-md transition-all">
+              <button className="bg-green-100 rounded-2xl py-6 text-base md:text-lg font-medium hover:shadow-md transition-all">
                 💬 Book via Whatsapp
               </button>
 
