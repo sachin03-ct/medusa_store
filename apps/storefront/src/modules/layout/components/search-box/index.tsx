@@ -19,7 +19,7 @@ export default function SearchBox() {
       try {
 
         const res = await fetch(
-          "http://localhost:9000/store/products",
+          `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/products`,
           {
             headers: {
               "x-publishable-api-key":

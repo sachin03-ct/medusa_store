@@ -32,6 +32,16 @@ const nextConfig = {
         hostname: "localhost",
       },
       {
+      protocol: "http",
+      hostname: "192.168.0.106",
+      port: "9000",
+      },
+      {
+      protocol: "http",
+      hostname: "192.168.0.213",
+      port: "9000",
+      },
+      {
         protocol: "https",
         hostname: "*.s3.*.amazonaws.com",
       },

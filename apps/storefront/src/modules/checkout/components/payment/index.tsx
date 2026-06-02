@@ -200,7 +200,7 @@ const handleSubmit = async () => {
 
     const statusRes =
       await fetch(
-        "http://localhost:9000/store/check-payment-status",
+      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/check-payment-status`,
         {
           method: "POST",
 
@@ -257,7 +257,7 @@ console.log(
 
   const completeRes =
     await fetch(
-      `http://localhost:9000/store/carts/${cart.id}/complete`,
+  `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/carts/${cart.id}/complete`,
       {
         method: "POST",
 
@@ -297,7 +297,7 @@ console.log(
     completeData.order.id
 
   window.location.href =
-    `/${cart.region?.countries?.[0]?.iso_2}/account/orders/details/${medusaOrderId}`
+  `${process.env.NEXT_PUBLIC_BASE_URL}/${cart.region?.countries?.[0]?.iso_2}/account/orders/details/${medusaOrderId}`
 },
 
       theme: {
@@ -314,7 +314,20 @@ console.log(
       )
       return
     }
+    console.log(
+  "RAZORPAY OPTIONS",
+  options
+)
 
+console.log(
+  "ORDER ID",
+  options.order_id
+)
+
+console.log(
+  "KEY",
+  options.key
+)
     const razorpay =
     new window.Razorpay(options)
 
