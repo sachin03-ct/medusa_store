@@ -49,22 +49,6 @@ export default function OffersPage() {
   return (
     <div className="min-h-screen bg-slate-50">
 
-      {/* HERO */}
-      <section className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-16">
-
-          <h1 className="text-4xl md:text-5xl font-bold">
-            Offers & Discounts
-          </h1>
-
-          <p className="mt-4 text-lg text-cyan-50 max-w-2xl">
-            Save more on medicines, healthcare products,
-            lab tests and wellness essentials.
-          </p>
-
-        </div>
-      </section>
-
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-10">
 
         {/* TOP BANNERS */}

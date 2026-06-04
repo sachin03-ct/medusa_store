@@ -67,7 +67,7 @@ export default function SearchBox() {
 
   return (
 
-    <div className="relative max-w-md w-full">
+    <div className="w-[40rem]">
 
       {/* INPUT */}
       <input
