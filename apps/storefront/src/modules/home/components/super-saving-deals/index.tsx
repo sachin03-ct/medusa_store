@@ -15,7 +15,7 @@ export default function SuperSavingDeals() {
   const fetchProducts = async () => {
     try {
       const res = await fetch(
-      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/products?limit=20&fields=*categories,*variants,+variants.calculated_price`,
+        `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/products?limit=20&fields=*categories,*variants,+variants.calculated_price`,
         {
           headers: {
             "x-publishable-api-key":
@@ -26,15 +26,14 @@ export default function SuperSavingDeals() {
 
       const data = await res.json()
 
-      const filteredProducts =
-  data.products.filter((product: any) => {
-    const price =
-      product.variants?.[0]?.calculated_price?.calculated_amount || 0
+      const filteredProducts = data.products.filter((product: any) => {
+        const price =
+          product.variants?.[0]?.calculated_price?.calculated_amount || 0
 
-    return price > 0 && price <= 500
-  })
+        return price > 0 && price <= 500
+      })
 
-setProducts(filteredProducts)
+      setProducts(filteredProducts)
     } catch (error) {
       console.error(error)
     }
@@ -119,36 +118,37 @@ setProducts(filteredProducts)
                 key={product.id}
                 href={`/health/${product.categories?.[0]?.handle}/${product.handle}`}
                 className="
-                  min-w-[220px]
-                  bg-white
-                  border
-                  rounded-3xl
-                  p-4
-                  hover:shadow-xl
-                  transition
-                  flex-shrink-0
-                "
-              >
-                <div className="overflow-hidden rounded-2xl bg-gray-50">
+                    w-[260px]
+                    min-w-[260px]
+                    bg-white
+                    border
+                    rounded-2xl
+                    p-4
+                    hover:shadow-lg
+                    transition
+                    flex-shrink-0
+                  "
+                >
+                <div className="h-[220px] overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center">
                   <img
                     src={product.thumbnail || "/placeholder-product.png"}
                     alt={product.title}
                     className="
                     w-full
-                    h-[180px]
+                    h-full
                     object-cover
-                    rounded-2xl
+                    rounded-xl
                     hover:scale-105
                     duration-300
                   "
-                  />
+                />
                 </div>
 
-                <h3 className="mt-4 font-semibold line-clamp-2">
+                <h3 className="mt-4 font-semibold line-clamp-2 text-base min-h-[50px]">
                   {product.title}
                 </h3>
 
-                <p className="text-cyan-600 font-bold text-2xl mt-2">
+                <p className="mt-3 text-2xl font-bold text-cyan-600">
                   ₹{price}
                 </p>
               </LocalizedClientLink>

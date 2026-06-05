@@ -165,7 +165,7 @@ export default async function Nav() {
       <div className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-40">
         <div className="max-w-9xl mx-auto px-4 lg:px-6 py-3 flex items-center gap-6">
           {/* LOCATION */}
-          <div className="hidden md:flex items-center gap-2 min-w-fit bg-cyan-50 border border-cyan-100 rounded-xl px-4 py-3 hover:bg-cyan-100 transition cursor-pointer">
+          <div className="hidden md:flex items-center gap-2 min-w-fit bg-cyan-100 border border-cyan-200 rounded-xl px-4 py-3 hover:bg-cyan-200 transition cursor-pointer">
             <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
               <CurrentLocation />
             </span>
