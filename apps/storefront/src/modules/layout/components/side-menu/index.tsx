@@ -22,6 +22,7 @@ const SideMenuItems = {
   Ayurveda: "/ayurveda",
   "Cancer Care": "/cancer-care",
   Offers: "/offers",
+  ContactUs: "/contact-us",
 }
 
 type SideMenuProps = {
@@ -163,6 +164,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                                   {name === "Ayurveda" && "🌿"}
                                   {name === "Cancer Care" && "🎗️"}
                                   {name === "Offers" && "🔥"}
+                                  {name === "Contact-Us" && "📞"}
                                 </span>
 
                                 <span className="font-medium">{name}</span>

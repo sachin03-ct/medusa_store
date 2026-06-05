@@ -96,8 +96,7 @@ export default function CategoryNavbar() {
                 className="
                   flex
                   items-center
-                  gap-1
-                  py-3
+                  py-2
                   text-sm
                   font-medium
                   whitespace-nowrap
@@ -120,15 +119,12 @@ export default function CategoryNavbar() {
                 <div
                   className="
                     absolute
-                    top-full
                     left-0
-                    mt-1
                     bg-white
                     rounded-xl
                     shadow-2xl
                     border
                     min-w-[280px]
-                    py-2
                     z-[99999]
                   "
                 >
@@ -141,7 +137,6 @@ export default function CategoryNavbar() {
                         px-5
                         py-3
                         text-sm
-                        hover:bg-cyan-50
                         hover:text-cyan-600
                         transition
                       "

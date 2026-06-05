@@ -188,7 +188,7 @@ export default async function Nav() {
               from-cyan-500
               to-teal-500
               text-white
-              px-5 py-3
+              px-4 py-3
               rounded-xl
             "
           >
