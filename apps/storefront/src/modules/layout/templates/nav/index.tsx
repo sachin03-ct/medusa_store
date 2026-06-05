@@ -26,7 +26,7 @@ export default async function Nav() {
     <div className="sticky top-0 inset-x-0 z-50">
       {/* MAIN NAVBAR */}
       <header className="bg-white shadow-sm border-b">
-        <nav className="max-w-8xl mx-auto px-4 lg:px-6 h-18 flex items-center justify-between">
+        <nav className="max-w-9xl mx-auto px-4 lg:px-6 h-18 flex items-center justify-between">
           {/* LEFT */}
           <div className="flex items-center gap-4">
             <SideMenu
@@ -126,7 +126,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Login | Signup
+                Login / Signup
               </LocalizedClientLink>
             )}
 
@@ -163,7 +163,7 @@ export default async function Nav() {
 
       {/* SEARCH BAR SECTION */}
       <div className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-40">
-        <div className="max-w-8xl mx-auto px-4 lg:px-6 py-3 flex items-center gap-6">
+        <div className="max-w-9xl mx-auto px-4 lg:px-6 py-3 flex items-center gap-6">
           {/* LOCATION */}
           <div className="hidden md:flex items-center gap-2 min-w-fit bg-cyan-50 border border-cyan-100 rounded-xl px-4 py-3 hover:bg-cyan-100 transition cursor-pointer">
             <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
@@ -175,7 +175,7 @@ export default async function Nav() {
           <div className="flex-1">
             <SearchBox />
           </div>
-          <div className="hidden lg:flex items-center whitespace-nowrap text-gray-800 font-medium">
+          <div className="hidden lg:flex items-center whitespace-nowrap text-gray-800 font-medium px-12">
             🚚 Free Delivery On orders above ₹499
           </div>
           {/* QUICK ORDER */}

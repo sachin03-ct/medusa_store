@@ -84,7 +84,7 @@ export default async function HealthPage({
                   {product.variants?.[0]?.calculated_price?.calculated_amount || 0}
                 </p>
 
-                <button className="mt-5 w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-2xl">
+                <button className="mt-5 w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 rounded-2xl">
                   Add to Cart
                 </button>
 

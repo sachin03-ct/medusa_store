@@ -436,7 +436,7 @@ console.log(
 
           <Button
             size="large"
-            className="mt-6"
+            className="mt-6 bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={

@@ -47,7 +47,7 @@ export default function AddToCartButton({
     <button
       onClick={handleAddToCart}
       disabled={loading}
-      className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 rounded-2xl text-lg font-semibold hover:shadow-2xl duration-300"
+      className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-4 rounded-2xl text-lg font-semibold hover:shadow-2xl duration-300"
     >
 
       {loading ? "Adding..." : "Add to Cart"}

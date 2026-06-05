@@ -200,7 +200,7 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full"
+                      className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white"
                       size="large"
                       data-testid="go-to-cart-button"
                     >
@@ -219,8 +219,8 @@ const CartDropdown = ({
                   <div>
                     <LocalizedClientLink href="/store">
                       <>
-                        <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
+                        <span className="sr-only ">Go to all products page</span>
+                        <Button onClick={close} className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white">Explore products</Button>
                       </>
                     </LocalizedClientLink>
                   </div>

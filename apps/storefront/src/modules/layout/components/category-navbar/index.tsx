@@ -8,9 +8,9 @@ const categories = [
   {
     name: "Health Resource Center",
     items: [
-      { name: "All Diseases", slug: "/health/articles" },
-      { name: "All Medicines", slug: "/health/disease-guide" },
-      { name: "Medicines by Therapeutic Class", slug: "/health/first-aid" },
+      { name: "All Diseases", slug: "/all-diseases" },
+      { name: "All Medicines", slug: "/all-medicines" },
+      { name: "Medicines by Therapeutic Class", slug: "/drugs-therapeutic-classes" },
     ],
   },
   {
