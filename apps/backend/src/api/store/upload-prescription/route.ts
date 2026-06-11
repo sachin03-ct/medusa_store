@@ -11,24 +11,32 @@ export async function POST(
   res: MedusaResponse
 ) {
   try {
-    const { name, email, phone, address } =
-    req.body as {
-    name: string
-    email: string
-    phone: string
-    address: string
-  }
+    const {
+      name,
+      email,
+      phone,
+      address,
+    } = req.body as {
+      name: string
+      email: string
+      phone: string
+      address: string
+    }
 
     const file = (req as any).file
 
-    if (!name && email && !phone && !address) {
-  return res.status(400).json({
-    success: false,
-    message:
-      "Name, phone and address are required",
-  })
-}
-    
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !address
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name, email, phone and address are required",
+      })
+    }
 
     if (!file) {
       return res.status(400).json({
@@ -37,6 +45,33 @@ export async function POST(
           "Prescription file is required",
       })
     }
+
+    // =========================
+    // FIND CUSTOMER BY EMAIL
+    // =========================
+
+    const customerResult =
+      await pool.query(
+        `
+        SELECT id
+        FROM customer
+        WHERE email = $1
+        LIMIT 1
+        `,
+        [email]
+      )
+
+    const customerId =
+      customerResult.rows[0]?.id || null
+
+    console.log(
+      "Customer Found:",
+      customerId
+    )
+
+    // =========================
+    // CREATE PRESCRIPTION
+    // =========================
 
     const prescriptionId =
       `RX-${Date.now()}`
@@ -49,16 +84,22 @@ export async function POST(
       INSERT INTO prescriptions
       (
         prescription_id,
+        customer_id,
         customer_name,
         email,
         phone_number,
         address,
-        image_url
+        image_url,
+        status
       )
-      VALUES ($1,$2,$3,$4,$5,$6)
+      VALUES
+      (
+        $1,$2,$3,$4,$5,$6,$7,'pending'
+      )
       `,
       [
         prescriptionId,
+        customerId,
         name,
         email,
         phone,
@@ -66,6 +107,10 @@ export async function POST(
         imageUrl,
       ]
     )
+
+    // =========================
+    // EMAIL ADMIN
+    // =========================
 
     const transporter =
       nodemailer.createTransport({
@@ -79,40 +124,85 @@ export async function POST(
       })
 
     await transporter.sendMail({
-  from: process.env.EMAIL_USER,
-  to: process.env.EMAIL_USER,
-  subject: `New Prescription ${prescriptionId}`,
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: `New Prescription ${prescriptionId}`,
 
-  html: `
-    <h2>New Prescription Received</h2>
+      html: `
+        <h2>New Prescription Received</h2>
 
-    <p><b>Prescription ID:</b> ${prescriptionId}</p>
-    <p><b>Name:</b> ${name}</p>
-    <p><b>Email:</b> ${email}</p>
-    <p><b>Phone:</b> ${phone}</p>
-    <p><b>Address:</b>${address}</p>
+        <p>
+          <b>Prescription ID:</b>
+          ${prescriptionId}
+        </p>
 
-    <p>
-      Prescription image attached below.
-    </p>
+        <p>
+          <b>Customer ID:</b>
+          ${customerId || "Guest User"}
+        </p>
 
-    <img
-      src="cid:prescriptionImage"
-      width="500"
-    />
-  `,
+        <p>
+          <b>Name:</b>
+          ${name}
+        </p>
 
-  attachments: [
-    {
-      filename: file.filename,
-      path: file.path,
-      cid: "prescriptionImage",
-    },
-  ],
-})
+        <p>
+          <b>Email:</b>
+          ${email}
+        </p>
+
+        <p>
+          <b>Phone:</b>
+          ${phone}
+        </p>
+
+        <p>
+          <b>Address:</b>
+          ${address}
+        </p>
+
+        ${
+          file.mimetype.startsWith(
+            "image/"
+          )
+            ? `
+            <h3>Prescription Image</h3>
+
+            <img
+              src="cid:prescriptionImage"
+              width="500"
+            />
+          `
+            : `
+            <p>
+              Prescription PDF attached.
+            </p>
+          `
+        }
+      `,
+
+      attachments: [
+        {
+          filename:
+            file.originalname,
+          path: file.path,
+
+          ...(file.mimetype.startsWith(
+            "image/"
+          )
+            ? {
+                cid:
+                  "prescriptionImage",
+              }
+            : {}),
+        },
+      ],
+    })
+
     return res.json({
       success: true,
       prescriptionId,
+      customerId,
       imageUrl,
     })
   } catch (error: any) {

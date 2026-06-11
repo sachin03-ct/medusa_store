@@ -30,6 +30,28 @@ export default function PrescriptionDetails() {
   const createDraftOrder = async () => {
     window.location.href = `/app/draft-orders/create`;
   };
+
+  const attachOrder = async () => {
+  const orderId = prompt("Enter Order ID")
+
+  if (!orderId) return
+
+  await fetch(
+    `/admin/prescriptions/${id}/attach-order`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order_id: orderId,
+      }),
+    }
+  )
+
+  window.location.reload()
+}
   // useEffect here...
 
   useEffect(() => {
@@ -80,6 +102,7 @@ export default function PrescriptionDetails() {
           <Button variant="secondary" onClick={createDraftOrder}>
             Create Draft Order
           </Button>
+          <Button onClick={attachOrder}>Attach Order</Button>
         </div>
       </Container>
 

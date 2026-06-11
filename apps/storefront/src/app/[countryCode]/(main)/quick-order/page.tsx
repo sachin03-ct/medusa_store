@@ -36,16 +36,17 @@ export default function QuickOrderPage() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/upload-prescription`,
-        {
-          method: "POST",
-          headers: {
-            "x-publishable-api-key":
-              process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!,
-          },
-          body: formData,
-        }
-      )
+      `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/store/upload-prescription`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "x-publishable-api-key":
+            process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!,
+        },
+        body: formData,
+      }
+    )
 
       const data = await res.json()
 
