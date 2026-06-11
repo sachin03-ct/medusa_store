@@ -11,18 +11,17 @@ export async function POST(
   res: MedusaResponse
 ) {
   try {
-    const { name, phone, address } =
+    const { name, email, phone, address } =
     req.body as {
     name: string
+    email: string
     phone: string
     address: string
   }
 
     const file = (req as any).file
 
-    console.log("Uploaded File:", file)
-
-    if (!name || !phone || !address) {
+    if (!name && email && !phone && !address) {
   return res.status(400).json({
     success: false,
     message:
@@ -51,15 +50,17 @@ export async function POST(
       (
         prescription_id,
         customer_name,
+        email,
         phone_number,
         address,
         image_url
       )
-      VALUES ($1,$2,$3,$4,$5)
+      VALUES ($1,$2,$3,$4,$5,$6)
       `,
       [
         prescriptionId,
         name,
+        email,
         phone,
         address,
         imageUrl,
@@ -87,6 +88,7 @@ export async function POST(
 
     <p><b>Prescription ID:</b> ${prescriptionId}</p>
     <p><b>Name:</b> ${name}</p>
+    <p><b>Email:</b> ${email}</p>
     <p><b>Phone:</b> ${phone}</p>
     <p><b>Address:</b>${address}</p>
 

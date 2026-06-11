@@ -10,17 +10,17 @@ export default function QuickOrderPage() {
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [address, setAddress] = useState("")
-
+  const [email, setEmail] = useState("")
   const handleSubmit = async () => {
     if (!file) {
       alert("Please upload a prescription")
       return
     }
 
-    if (!name || !phone || !address) {
+    if (!name && !email && !phone && !address) {
   alert(
-    "Please enter name, phone and address"
-  )
+  "Please enter name, email, phone and address"
+)
   return
 }
 
@@ -29,6 +29,7 @@ export default function QuickOrderPage() {
     const formData = new FormData()
 
     formData.append("name", name)
+    formData.append("email", email)
     formData.append("phone", phone)
     formData.append("file", file)
     formData.append("address", address)
@@ -52,6 +53,7 @@ export default function QuickOrderPage() {
         setShowSuccess(true)
 
         setName("")
+        setEmail("")
         setPhone("")
         setFile(null)
 
@@ -155,6 +157,23 @@ return (
                 setName(e.target.value)
               }
               placeholder="Full Name"
+              className="
+                w-full
+                border
+                border-gray-300
+                rounded-xl
+                p-4
+                focus:outline-none
+                focus:ring-2
+                focus:ring-cyan-500
+              "
+            />
+            
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email Address"
               className="
                 w-full
                 border

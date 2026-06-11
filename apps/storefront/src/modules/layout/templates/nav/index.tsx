@@ -98,10 +98,10 @@ export default async function Nav() {
             </LocalizedClientLink>
 
             <LocalizedClientLink 
-              href="/contact-us" 
+              href="/care-plan" 
               className="font-semibold text-gray-700 hover:text-cyan-600 transition"
             >
-              Contact Us
+              Care Plan
             </LocalizedClientLink>
           </div>
 

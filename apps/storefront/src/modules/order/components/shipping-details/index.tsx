@@ -55,14 +55,21 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
           data-testid="shipping-method-summary"
         >
           <Text className="txt-medium-plus text-ui-fg-base mb-1">Method</Text>
-          <Text className="txt-medium text-ui-fg-subtle">
-            {(order.shipping_methods?.[0] as { name?: string })?.name} (
-            {convertToLocale({
-              amount: order.shipping_methods?.[0].total ?? 0,
-              currency_code: order.currency_code,
-            })}
-            )
-          </Text>
+
+          {order.shipping_methods?.length ? (
+            <Text className="txt-medium text-ui-fg-subtle">
+              {order.shipping_methods[0].name} (
+              {convertToLocale({
+                amount: order.shipping_methods[0].total || 0,
+                currency_code: order.currency_code,
+              })}
+              )
+            </Text>
+          ) : (
+            <Text className="txt-medium text-ui-fg-subtle">
+              No shipping method assigned
+            </Text>
+          )}
         </div>
       </div>
       <Divider className="mt-8" />
